@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Redis Module """
-import redis
+import redis, Callable
 import uuid
 from typing import Union
 
@@ -16,9 +16,18 @@ class Cache:
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
-    def get(self, key: str,
-        fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
-    """ Get data from Redis """
-    value = self._redis.get(key)
-    return value if not fn else fn(value)
-    
+
+    def get(self, key: str, fn: Callable = None) -> Union[str, bytes, int, float]:
+        # Récupère les données depuis Redis
+        data = self._redis.get(key)
+
+        # Si les données n'existent pas, on retourne None
+        if data is None:
+            return None
+
+        # Si une fonction de conversion (fn) est fournie, on l'applique
+        if fn:
+            return fn(data)
+
+        # Sinon, on retourne les données telles qu'elles sont (par défaut en tant que bytes)
+        return data
