@@ -140,6 +140,5 @@ Here are some common issues you might encounter and their solutions:
   **Solution:** Make sure you're logging in with the correct user and password. If the user doesn’t have sufficient privileges, grant them using:
   ```sql
   GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
- ``
+ ``` 
 
- 
