@@ -5,7 +5,7 @@ import uuid
 from typing import Union
 
 
-class cache:
+class Cache:
     def __init__(self):
         """ Constructor """
         self._redis = redis.Redis()
